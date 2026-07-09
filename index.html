@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SISFAL — Sistema de Control de Sanciones y Faltas</title>
+<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+
+<!-- ===================== LOGIN ===================== -->
+<div id="pantalla-login">
+  <div class="login-box">
+    <div class="login-logo">
+      <h1>SISFAL</h1>
+      <p>Instituto Nacional Técnico Industrial</p>
+    </div>
+    <form id="form-login">
+      <div class="form-group">
+        <label for="l-usuario">Usuario</label>
+        <input type="text" id="l-usuario" placeholder="Ingrese su usuario" required autocomplete="username">
+      </div>
+      <div class="form-group">
+        <label for="l-password">Contraseña</label>
+        <input type="password" id="l-password" placeholder="Ingrese su contraseña" required autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn-login">Iniciar Sesión</button>
+      <p id="login-error"></p>
+    </form>
+  </div>
+</div>
+
+<!-- ===================== APP ===================== -->
+<div id="app">
+
+  <!-- HEADER / NAV SUPERIOR -->
+  <header id="header">
+    <div class="header-marca">
+      <svg class="escudo" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M24 4 L42 10 V22 C42 33 34 41 24 44 C14 41 6 33 6 22 V10 Z" fill="rgba(255,255,255,.1)" stroke="#fff" stroke-width="1.6"/>
+        <path d="M24 12 L24 32 M17 22 L31 22" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
+        <circle cx="24" cy="22" r="6" stroke="#fff" stroke-width="1.4" fill="none"/>
+      </svg>
+      <div class="titulos">
+        <span class="t1">INTI</span>
+        <span class="t2">Sistema de gestion de sanciones y faltas cometidas </span>
+      </div>
+    </div>
+
+    <!-- NAV PRINCIPAL -->
+    <nav id="nav-principal">
+      <a href="#" class="nav-item active" data-page="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span class="txt">Dashboard</span>
+      </a>
+
+      <!-- "Menú Principal": agrupa Sanciones e Historial (secciones sin
+           botón propio en el nav para no saturarlo, tal como en el diseño) -->
+      <div class="nav-dropdown" id="dropdown-menu">
+        <button type="button" class="nav-item" id="btn-menu-principal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          <span class="txt">Menú Principal</span>
+        </button>
+        <div class="nav-dropdown-panel">
+          <a href="#" data-page="sanciones">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Sanciones
+          </a>
+          <a href="#" data-page="historial">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Historial
+          </a>
+        </div>
+      </div>
+
+      <a href="#" class="nav-item" data-page="estudiantes">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span class="txt">Estudiantes</span>
+      </a>
+      <a href="#" class="nav-item" data-page="faltas">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span class="txt">Incidentes</span>
+      </a>
+      <a href="#" class="nav-item" data-page="reportes">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        <span class="txt">Reportes</span>
+      </a>
+    </nav>
+
+    <!-- USUARIO -->
+    <div class="header-user" id="menu-usuario">
+      <div class="separador"></div>
+      <button type="button" class="user-menu-btn" id="btn-user-menu">
+        <div class="avatar-circulo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <div class="user-info">
+          <span class="nombre-usuario">—</span>
+          <span class="rol-usuario">—</span>
+        </div>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="user-dropdown-panel">
+        <button type="button" id="btn-logout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Cerrar sesión
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENIDO -->
+  <main id="contenido">
+
+    <!-- ── DASHBOARD ── -->
+    <section id="pag-dashboard" class="pagina activa">
+      <div class="bienvenida">
+        <h1 id="dash-bienvenida">Bienvenido</h1>
+        <p>Aquí tienes un resumen general de la información del instituto.</p>
+      </div>
+      <div id="dash-contenido">
+        <div class="loading"><div class="spinner"></div>Cargando...</div>
+      </div>
+    </section>
+
+    <!-- ── ESTUDIANTES ── -->
+    <section id="pag-estudiantes" class="pagina">
+      <div class="page-header">
+        <div class="titulo-conj">
+          <div class="icono-titulo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div>
+            <h1>Estudiantes</h1>
+            <div class="subt">Gestión y consulta de estudiantes registrados en el instituto.</div>
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="abrirModalEstudiante()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Nuevo Estudiante
+        </button>
+      </div>
+
+      <!-- ============================================================
+           PANEL DE FILTROS
+           Los <select> de Especialidad y Sección se rellenan en tiempo
+           de ejecución desde las listas ESPECIALIDADES y SECCIONES
+           definidas en assets/js/app.js (búscalas ahí como
+           "EDITAR AQUÍ" para agregar/quitar especialidades o secciones).
+           El de Año se genera automáticamente (ANIOS_MIN..ANIOS_MAX).
+           ============================================================ -->
+      <div class="panel-filtros">
+        <div class="filtros-fila">
+          <div class="filtro-buscar">
+            <label for="buscar-estudiante">Buscar</label>
+            <div class="input-con-icono">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" id="buscar-estudiante" placeholder="Buscar por nombre, apellido, NIE o email...">
+            </div>
+          </div>
+          <div class="filtro-campo">
+            <label for="filtro-especialidad">Especialidad</label>
+            <select id="filtro-especialidad"><option value="">Todas las especialidades</option></select>
+          </div>
+          <div class="filtro-campo">
+            <label for="filtro-anio">Año</label>
+            <select id="filtro-anio"><option value="">Todos los años</option></select>
+          </div>
+          <div class="filtro-campo">
+            <label for="filtro-seccion">Sección</label>
+            <select id="filtro-seccion"><option value="">Todas las secciones</option></select>
+          </div>
+          <button class="btn btn-outline" id="btn-limpiar-filtros" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+            Limpiar filtros
+          </button>
+          <button class="btn btn-primary" id="btn-imprimir-seccion" type="button" disabled>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            Imprimir reporte de sección
+          </button>
+        </div>
+      </div>
+
+      <div class="tabla-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>NIE</th>
+              <th>Nombre</th>
+              <th>Apellido</th>
+              <th>Código</th>
+              <th>Teléfono</th>
+              <th>Email</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tabla-estudiantes">
+            <tr><td colspan="8" class="tabla-vacia">Cargando...</td></tr>
+          </tbody>
+        </table>
+        <div class="paginacion-wrap">
+          <div class="paginacion-info" id="paginacion-info">—</div>
+          <div class="paginacion-botones" id="paginacion-botones"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── FALTAS / INCIDENTES ── -->
+    <section id="pag-faltas" class="pagina">
+      <div class="page-header">
+        <div class="titulo-conj">
+          <div class="icono-titulo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+          <div>
+            <h1>Incidentes / Faltas</h1>
+            <div class="subt">Registro de faltas disciplinarias.</div>
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="abrirModalFalta()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Registrar falta
+        </button>
+      </div>
+      <div class="tabla-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>NIE</th>
+              <th>Estudiante</th>
+              <th>Tipo de falta</th>
+              <th>Gravedad</th>
+              <th>Fecha</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tabla-faltas">
+            <tr><td colspan="6" class="tabla-vacia">Cargando...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── SANCIONES ── -->
+    <section id="pag-sanciones" class="pagina">
+      <div class="page-header">
+        <div class="titulo-conj">
+          <div class="icono-titulo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div>
+            <h1>Sanciones</h1>
+            <div class="subt">Gestión de sanciones aplicadas.</div>
+          </div>
+        </div>
+      </div>
+      <div class="tabla-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>NIE</th>
+              <th>Estudiante</th>
+              <th>Tipo de sanción</th>
+              <th>Período</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tabla-sanciones">
+            <tr><td colspan="6" class="tabla-vacia">Cargando...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── HISTORIAL ── -->
+    <section id="pag-historial" class="pagina">
+      <div class="page-header">
+        <div class="titulo-conj">
+          <div class="icono-titulo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div>
+            <h1>Historial Disciplinario</h1>
+            <div class="subt">Todas las faltas registradas en el sistema.</div>
+          </div>
+        </div>
+      </div>
+      <div id="lista-historial">
+        <div class="loading"><div class="spinner"></div>Cargando historial...</div>
+      </div>
+    </section>
+
+    <!-- ── REPORTES ── -->
+    <section id="pag-reportes" class="pagina">
+      <div class="page-header">
+        <div class="titulo-conj">
+          <div class="icono-titulo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <div>
+            <h1>Reportes y Estadísticas</h1>
+            <div class="subt">Accesos rápidos a la información del sistema.</div>
+          </div>
+        </div>
+      </div>
+      <div class="reporte-grid">
+        <div class="reporte-card" onclick="navegar('historial')">
+          <div class="icono-circulo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <h3>Historial completo</h3>
+          <p>Ver todas las faltas registradas en el sistema.</p>
+        </div>
+        <div class="reporte-card" onclick="navegar('sanciones')">
+          <div class="icono-circulo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <h3>Sanciones activas</h3>
+          <p>Revisar sanciones vigentes y pendientes de cumplimiento.</p>
+        </div>
+        <div class="reporte-card" onclick="navegar('estudiantes')">
+          <div class="icono-circulo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+          <h3>Listado de estudiantes</h3>
+          <p>Consultar y gestionar el padrón de estudiantes.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ===================== MODALES ===================== -->
+
+<!-- Modal: Ver Estudiante (solo lectura) -->
+<div class="modal-overlay" id="modal-ver-estudiante">
+  <div class="modal">
+    <h2>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      Detalle del Estudiante
+    </h2>
+    <div class="detalle-grid" id="detalle-estudiante-contenido"></div>
+
+    <h3 style="margin:22px 0 10px;font-size:.95rem;color:var(--texto-dark)">Récord de faltas</h3>
+    <div id="detalle-estudiante-faltas"></div>
+
+    <div class="modal-actions">
+      <button type="button" class="btn btn-outline" id="btn-editar-modal">Editar información</button>
+      <button type="button" class="btn btn-danger" id="btn-dar-baja-modal">Dar de baja</button>
+      <button type="button" class="btn btn-outline" onclick="cerrarModal('modal-ver-estudiante')">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Estudiante (crear/editar) -->
+<div class="modal-overlay" id="modal-estudiante">
+  <div class="modal">
+    <h2 id="modal-est-titulo">Registrar Estudiante</h2>
+    <form id="form-estudiante">
+      <div class="form-row">
+        <div class="form-group">
+          <label>NIE *</label>
+          <input type="text" id="est-nie" placeholder="7 dígitos, ej: 0123456" maxlength="7" required>
+        </div>
+        <div class="form-group">
+          <label>Código *</label>
+          <input type="text" id="est-codigo" placeholder="Ej: DS3A" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nombre *</label>
+          <input type="text" id="est-nombre" placeholder="Nombres" required>
+        </div>
+        <div class="form-group">
+          <label>Apellido *</label>
+          <input type="text" id="est-apellido" placeholder="Apellidos" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Fecha de nacimiento</label>
+          <input type="date" id="est-fecha">
+        </div>
+        <div class="form-group">
+          <label>Teléfono</label>
+          <input type="tel" id="est-telefono" placeholder="7000-0000">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Correo electrónico</label>
+        <input type="email" id="est-email" placeholder="correo@ejemplo.com">
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-outline" onclick="cerrarModal('modal-estudiante')">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal: Falta -->
+<div class="modal-overlay" id="modal-falta">
+  <div class="modal">
+    <h2>Registrar Falta</h2>
+    <form id="form-falta">
+      <div class="form-group">
+        <div class="form-group">
+        <label>Estudiante *</label>
+        <div class="autocomplete-wrap">
+          <input type="text" id="falta-estudiante-buscar" class="autocomplete-input"
+                 placeholder="Cargando..." autocomplete="off" disabled>
+          <input type="hidden" id="falta-estudiante">
+          <div class="autocomplete-lista" id="falta-estudiante-lista"></div>
+        </div>
+      </div>
+      </div>
+      <div class="form-group">
+        <label>Tipo de falta *</label>
+        <select id="falta-tipo" required>
+          <option value="">Cargando...</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Fecha *</label>
+        <input type="date" id="falta-fecha" required>
+      </div>
+      <div class="form-group">
+        <label>Descripción / Observaciones</label>
+        <textarea id="falta-desc" placeholder="Detalle lo ocurrido..."></textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-outline" onclick="cerrarModal('modal-falta')">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Registrar falta</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal: Sanción -->
+<div class="modal-overlay" id="modal-sancion">
+  <div class="modal">
+    <h2>Aplicar Sanción</h2>
+    <p style="font-size:.88rem;color:var(--texto-gris);margin-bottom:20px">
+      Estudiante: <strong id="sancion-titulo-est">—</strong>
+    </p>
+    <form id="form-sancion">
+      <div class="form-group">
+        <label>Tipo de sanción *</label>
+        <select id="sancion-tipo" required>
+          <option value="">-- Selecciona --</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Fecha inicio *</label>
+          <input type="date" id="sancion-fecha-ini" required>
+        </div>
+        <div class="form-group">
+          <label>Fecha fin</label>
+          <input type="date" id="sancion-fecha-fin">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Descripción</label>
+        <textarea id="sancion-desc" placeholder="Detalles de la sanción..."></textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-outline" onclick="cerrarModal('modal-sancion')">Cancelar</button>
+        <button type="submit" class="btn btn-warning">Aplicar sanción</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<script src="assets/js/app.js"></script>
+</body>
+</html>
