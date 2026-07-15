@@ -3,12 +3,12 @@
  * SISFAL - Controlador de Reportes
  * Envío de reportes disciplinarios por correo electrónico y generación de PDF
  */
-require_once 'C:/wamp64/www/sisfal/config/database.php';
-require_once 'C:/wamp64/www/sisfal/config/Mail.php';
-require_once 'C:/wamp64/www/sisfal/lib/PHPMailer/Exception.php';
-require_once 'C:/wamp64/www/sisfal/lib/PHPMailer/PHPMailer.php';
-require_once 'C:/wamp64/www/sisfal/lib/PHPMailer/SMTP.php';
-require_once 'C:/wamp64/www/sisfal/app/controllers/pdf/ReportePDF.php';
+require_once __DIR__ . '/../../config/database.php';
+require_once __DIR__ . '/../../config/Mail.php';
+require_once __DIR__ . '/../../lib/PHPMailer/Exception.php';
+require_once __DIR__ . '/../../lib/PHPMailer/PHPMailer.php';
+require_once __DIR__ . '/../../lib/PHPMailer/SMTP.php';
+require_once __DIR__ . '/pdf/ReportePDF.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;

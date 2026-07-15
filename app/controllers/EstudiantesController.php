@@ -1,9 +1,11 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 /**
  * SISFAL - Controlador de Estudiantes
  * Instituto Nacional Técnico Industrial
  */
-require_once 'C:/wamp64/www/sisfal/config/database.php';
+require_once __DIR__ . '/../../config/database.php';
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
@@ -125,7 +127,7 @@ $action = $_GET['action'] ?? '';
 
 try {
     match (true) {
-        $action === 'listar'     => $ctrl->listar(),
+        $action === 'li star'     => $ctrl->listar(),
         $action === 'ver'        => $ctrl->ver(),
         $action === 'crear'      => $ctrl->crear(),
         $action === 'actualizar' => $ctrl->actualizar(),

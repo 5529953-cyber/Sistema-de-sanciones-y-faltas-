@@ -1,8 +1,11 @@
 <?php
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 /**
  * SISFAL - Controlador de Autenticación
  */
- require_once 'C:/wamp64/www/sisfal/config/database.php';
+require_once __DIR__ . '/../../config/database.php';
 
 class AuthController {
 

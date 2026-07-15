@@ -3,7 +3,8 @@
  * SISFAL - Clase base para generar reportes PDF
  * Extiende FPDF agregando membrete institucional, encabezado y pie de página.
  */
-require_once 'C:/wamp64/www/sisfal/lib/FPDF/fpdf.php';
+
+require_once __DIR__ . '/../../../lib/FPDF/fpdf.php';
 
 class ReportePDF extends FPDF {
 

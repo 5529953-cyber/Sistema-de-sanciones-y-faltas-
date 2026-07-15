@@ -1,0 +1,29 @@
+{
+	"folders": [
+		{
+			"name": "prueva",
+			"path": "../../../../../Users/stanl/Desktop/prueva"
+		},
+		{
+			"name": "Sistema_saciones_faltas_cometidas",
+			"path": "../../../../../Users/stanl/Desktop/Sistema_saciones_faltas_cometidas"
+		},
+		{
+			"name": "SISFAL",
+			"path": "../../../../../Users/stanl/Downloads/SISFAL_completo/SISFAL"
+		},
+		{
+			"name": "SISFAL",
+			"path": "../../../../../Users/stanl/Downloads/SISFAL_local/SISFAL"
+		},
+		{
+			"name": "SISFAL_updated",
+			"path": "../../../../../Users/stanl/Downloads/SISFAL_conectado/SISFAL_updated"
+		},
+		{
+			"name": "sisfal",
+			"path": "../.."
+		}
+	],
+	"settings": {}
+}

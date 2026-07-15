@@ -1,8 +1,10 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 /**
  * SISFAL - Controlador de Faltas
  */
-require_once 'C:/wamp64/www/sisfal/config/database.php';
+require_once __DIR__ . '/../../config/database.php';
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
@@ -71,7 +73,7 @@ class FaltasController {
         // Notificación automática por correo al estudiante (sin sección de sanciones).
         // No debe bloquear ni fallar el registro de la falta si el envío falla.
         define('SISFAL_REPORTES_INCLUDE_ONLY', true);
-        require_once 'C:/wamp64/www/sisfal/app/controllers/ReportesController.php';
+        require_once __DIR__ . '/ReportesController.php';
         (new ReportesController())->enviarNotificacionFalta((int)$d['estudiante_id']);
 
         echo json_encode(['ok'=>true, 'id'=>$this->pdo->lastInsertId()]);

@@ -2,7 +2,7 @@
 /**
  * SISFAL - Controlador del Dashboard
  */
-require_once 'C:/wamp64/www/sisfal/config/database.php';
+require_once __DIR__ . '/../../config/database.php';
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
